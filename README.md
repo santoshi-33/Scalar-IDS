@@ -1,6 +1,29 @@
-# FypWeb
+# FypWeb · Scalora IDS
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.2.
+
+## Team setup (clone & run)
+
+1. **Clone the repo**
+   ```bash
+   git clone <repository-url>
+   cd fyp-web
+   ```
+
+2. **Frontend**
+   ```bash
+   npm install
+   ng serve
+   ```
+   Open http://localhost:4200
+
+3. **Backend (optional, for CSV predictions)**
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   uvicorn app.main:app --reload --port 8000
+   ```
+   The frontend expects the API at http://localhost:8000 by default.
 
 ## Development server
 
