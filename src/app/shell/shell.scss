@@ -1,0 +1,142 @@
+.app-shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #3b82f6, #a855f7);
+  color: white;
+  box-shadow: 0 10px 26px rgba(59, 130, 246, 0.25);
+}
+
+.brand-text {
+  font-size: 1.02rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 750;
+  padding: 0.35rem 0.55rem;
+  border-radius: 10px;
+}
+
+.nav a.active,
+.nav a:hover {
+  color: var(--fg);
+  background: color-mix(in srgb, var(--fg) 7%, transparent);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.btn {
+  text-decoration: none;
+  font-weight: 850;
+  border-radius: 12px;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-ghost {
+  color: var(--fg);
+  background: transparent;
+  border-color: var(--border);
+}
+
+.btn-ghost:hover {
+  background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+
+.btn-primary {
+  color: white;
+  background: linear-gradient(135deg, #2563eb, #9333ea);
+  box-shadow: 0 14px 30px rgba(124, 58, 237, 0.25);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.04);
+}
+
+.content {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1.2rem 1.25rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 650;
+}
+
+.footer a:hover {
+  color: var(--fg);
+}
+
+.dot {
+  opacity: 0.55;
+}
+
+@media (max-width: 720px) {
+  .nav {
+    display: none;
+  }
+}
+

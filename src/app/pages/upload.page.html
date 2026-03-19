@@ -1,0 +1,72 @@
+<div class="wrap">
+  <div class="head">
+    <div>
+      <h2>Upload CSV</h2>
+      <p class="sub">Upload a dataset CSV and run the ML model to classify rows.</p>
+    </div>
+    <div class="health">
+      <button class="btn btn-ghost" type="button" (click)="run()" [disabled]="loading()">
+        Run prediction
+      </button>
+    </div>
+  </div>
+
+  @if (error()) {
+    <div class="alert" role="alert">{{ error() }}</div>
+  }
+
+  <div class="panel">
+    <label class="file">
+      <input type="file" accept=".csv" (change)="onPick($event)" />
+      <span class="file-btn">Choose CSV</span>
+      <span class="file-name">
+        @if (file()) { {{ file()!.name }} } @else { No file selected }
+      </span>
+    </label>
+  </div>
+
+  @if (loading()) {
+    <div class="loading">Running model…</div>
+  }
+
+  @if (result()) {
+    <div class="results">
+      <div class="summary">
+        <h3>Summary</h3>
+        <div class="chips">
+          @for (k of (Object.keys(result()!.summary)); track k) {
+            <div class="chip">
+              <span class="k">{{ k }}</span>
+              <span class="v">{{ result()!.summary[k] }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="table">
+        <div class="thead">
+          <div>Row</div>
+          <div>Label</div>
+          <div>Probability</div>
+        </div>
+        @for (row of result()!.rows.slice(0, 25); track $index) {
+          <div class="trow">
+            <div>#{{ $index + 1 }}</div>
+            <div class="lbl">{{ row.label }}</div>
+            <div class="prob">
+              @if (row.probability === null || row.probability === undefined) {
+                —
+              } @else {
+                {{ (row.probability * 100) | number: '1.0-1' }}%
+              }
+            </div>
+          </div>
+        }
+        <div class="tfoot">
+          Showing first 25 rows. Full results can be stored in DB later (Render Postgres).
+        </div>
+      </div>
+    </div>
+  }
+</div>
+

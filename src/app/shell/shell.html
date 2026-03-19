@@ -1,0 +1,30 @@
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" routerLink="/">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span class="brand-text">Scalora IDS</span>
+    </a>
+
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a routerLink="/upload" routerLinkActive="active">Upload CSV</a>
+      <a routerLink="/history" routerLinkActive="active">History</a>
+    </nav>
+
+    <div class="actions">
+      <a class="btn btn-ghost" routerLink="/login">Sign in</a>
+      <a class="btn btn-primary" routerLink="/upload">Predict</a>
+    </div>
+  </header>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+
+  <footer class="footer">
+    <span>© {{ year }} Scalora</span>
+    <span class="dot" aria-hidden="true">•</span>
+    <a href="https://render.com" target="_blank" rel="noopener">Deploy on Render</a>
+  </footer>
+</div>
+

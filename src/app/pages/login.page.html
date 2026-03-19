@@ -1,0 +1,51 @@
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h2>Welcome back</h2>
+    <p class="sub">Sign in to continue.</p>
+
+    @if (error()) {
+      <div class="alert" role="alert">
+        {{ error() }}
+      </div>
+    }
+
+    <form (ngSubmit)="signIn()" class="form">
+      <label class="field">
+        <span>Email</span>
+        <input
+          name="email"
+          type="email"
+          autocomplete="email"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          placeholder="name@example.com"
+          required
+        />
+      </label>
+
+      <label class="field">
+        <span>Password</span>
+        <input
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          placeholder="••••"
+          required
+        />
+      </label>
+
+      <button class="btn btn-primary" type="submit" [disabled]="submitting()">
+        @if (submitting()) { <span class="spinner" aria-hidden="true"></span> }
+        <span>Sign in</span>
+      </button>
+    </form>
+
+    <div class="hint">
+      <span>Demo only.</span>
+      <a routerLink="/">Back to home</a>
+    </div>
+  </div>
+</div>
+

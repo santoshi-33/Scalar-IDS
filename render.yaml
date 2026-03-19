@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: scalora-ids-api
+    env: docker
+    rootDir: backend
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: ALLOWED_ORIGINS
+        value: https://YOUR-STATIC-SITE.onrender.com
+      - key: MODEL_PATH
+        value: /app/app/artifacts/ids_model.joblib
+
+  - type: web
+    name: scalora-ids-web
+    env: static
+    rootDir: .
+    buildCommand: cd fyp-web && npm ci && npm run build
+    staticPublishPath: fyp-web/dist/fyp-web/browser
+    autoDeploy: true
+

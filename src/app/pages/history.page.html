@@ -1,0 +1,39 @@
+<div class="wrap">
+  <div class="head">
+    <div>
+      <h2>History</h2>
+      <p class="sub">Recent prediction runs (stored locally for now).</p>
+    </div>
+    <div class="actions">
+      <a class="btn btn-ghost" routerLink="/upload">New upload</a>
+      <button class="btn btn-danger" type="button" (click)="clear()" [disabled]="empty()">Clear</button>
+    </div>
+  </div>
+
+  @if (empty()) {
+    <div class="panel">
+      <div class="empty-title">No history yet</div>
+      <div class="empty-sub">Run a prediction from the Upload page to see results here.</div>
+    </div>
+  } @else {
+    <div class="list">
+      @for (e of entries(); track e.at) {
+        <div class="item">
+          <div class="left">
+            <div class="file">{{ e.filename }}</div>
+            <div class="time">{{ e.at | date: 'medium' }}</div>
+          </div>
+          <div class="right">
+            @for (k of Object.keys(e.summary); track k) {
+              <div class="chip">
+                <span class="k">{{ k }}</span>
+                <span class="v">{{ e.summary[k] }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+

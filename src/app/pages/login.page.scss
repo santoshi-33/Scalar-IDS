@@ -1,0 +1,124 @@
+.auth-wrap {
+  display: grid;
+  place-items: center;
+  padding: 2rem 0;
+}
+
+.auth-card {
+  width: min(480px, 100%);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 1.25rem;
+  background: color-mix(in srgb, var(--bg) 92%, white 8%);
+  box-shadow: 0 28px 60px rgba(2, 6, 23, 0.25);
+}
+
+h2 {
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+
+.sub {
+  margin: 0.35rem 0 0.95rem;
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.alert {
+  border: 1px solid color-mix(in srgb, #ef4444 55%, var(--border));
+  background: color-mix(in srgb, #ef4444 12%, transparent);
+  border-radius: 16px;
+  padding: 0.7rem 0.85rem;
+  font-weight: 750;
+  margin-bottom: 0.85rem;
+}
+
+.form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.field span {
+  color: var(--muted);
+  font-weight: 900;
+  font-size: 0.85rem;
+}
+
+input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 0.75rem 0.85rem;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  color: var(--fg);
+  font-weight: 650;
+  outline: none;
+}
+
+input:focus {
+  border-color: color-mix(in srgb, #3b82f6 55%, var(--border));
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-radius: 16px;
+  padding: 0.75rem 0.95rem;
+  font-weight: 950;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  color: white;
+  background: linear-gradient(135deg, #2563eb, #9333ea);
+  box-shadow: 0 14px 30px rgba(124, 58, 237, 0.22);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hint {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.95rem;
+  color: var(--muted);
+  font-weight: 750;
+}
+
+.hint a {
+  color: var(--fg);
+  text-decoration: none;
+  font-weight: 950;
+}
+
+.hint a:hover {
+  text-decoration: underline;
+}
+
