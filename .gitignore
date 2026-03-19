@@ -11,6 +11,9 @@
 npm-debug.log
 yarn-error.log
 
+# Local datasets / ad-hoc files
+test.csv
+
 # IDEs and editors
 .idea/
 .project

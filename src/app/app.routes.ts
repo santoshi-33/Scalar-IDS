@@ -7,6 +7,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/landing.page').then((m) => m.LandingPage)
   },
   {
+    path: 'dashboard',
+    title: 'Dashboard · Scalora IDS',
+    loadComponent: () => import('./pages/dashboard.page').then((m) => m.DashboardPage)
+  },
+  {
     path: 'login',
     title: 'Sign in · Scalora IDS',
     loadComponent: () => import('./pages/login.page').then((m) => m.LoginPage)

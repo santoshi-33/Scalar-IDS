@@ -1,0 +1,9 @@
+duration,protocol_type,service,flag,src_bytes,dst_bytes,failed_logins,count,srv_count,label
+0,tcp,http,SF,181,5450,0,8,8,normal
+0,tcp,http,SF,239,486,0,10,10,normal
+2,tcp,ftp_data,SF,12983,0,0,1,1,normal
+0,tcp,smtp,REJ,0,0,3,100,50,neptune
+0,udp,other,SF,105,146,0,255,255,smurf
+5,tcp,ftp,S0,0,0,5,200,180,guess_passwd
+3,tcp,http,SF,300,1200,0,5,5,normal
+0,tcp,http,REJ,0,0,2,120,60,neptune

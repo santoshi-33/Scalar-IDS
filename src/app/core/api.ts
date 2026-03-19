@@ -16,5 +16,17 @@ export class ApiService {
   predictCsv(file: File) {
     return this.client.predictCsv(file);
   }
+
+  detections(limit = 25) {
+    return this.client.detections(limit);
+  }
+
+  stats(minutes = 30) {
+    return this.client.stats(minutes);
+  }
+
+  simulate(n = 10) {
+    return this.client.simulate(n);
+  }
 }
 

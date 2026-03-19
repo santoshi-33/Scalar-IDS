@@ -1,0 +1,138 @@
+<div class="dash">
+  <div class="head">
+    <div>
+      <h2>Network Intrusion Detection System</h2>
+      <p class="sub">Live ML-based threat detection & monitoring (polling the backend API).</p>
+    </div>
+
+    <div class="head-actions">
+      <button class="btn btn-ghost" type="button" (click)="togglePolling()">
+        @if (polling()) { Pause } @else { Resume }
+      </button>
+      <button class="btn btn-ghost" type="button" (click)="refresh()" [disabled]="refreshing()">
+        @if (refreshing()) { Refreshing… } @else { Refresh }
+      </button>
+      <button class="btn btn-primary" type="button" (click)="simulate()">Simulate traffic</button>
+    </div>
+  </div>
+
+  @if (error()) {
+    <div class="alert" role="alert">{{ error() }}</div>
+  }
+
+  <div class="filters">
+    <span class="tag">Model: live API</span>
+    <span class="tag">Window:</span>
+    <button class="pill" type="button" [class.active]="minutes() === 10" (click)="setWindow(10)">10m</button>
+    <button class="pill" type="button" [class.active]="minutes() === 30" (click)="setWindow(30)">30m</button>
+    <button class="pill" type="button" [class.active]="minutes() === 60" (click)="setWindow(60)">60m</button>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="k">Total Traffic</div>
+      <div class="v">{{ stats()?.total_traffic ?? 0 }}</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Attacks Detected</div>
+      <div class="v">{{ stats()?.attacks_detected ?? 0 }}</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Attack Rate</div>
+      <div class="v warn">{{ attackRatePct() }}%</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Detection Accuracy</div>
+      <div class="v ok">
+        @if (accuracyPct() === null) { — } @else { {{ accuracyPct() }}% }
+      </div>
+      <div class="hint">Shows only if CSV includes actual labels.</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-head">
+        <h3>Attack Type Distribution (Top 10)</h3>
+      </div>
+
+      <div class="dist">
+        <div class="donut" [style.background]="donutStyle()"></div>
+        <div class="legend">
+          @for (kv of (stats()?.attack_type_distribution | keyvalue); track kv.key) {
+            <div class="row">
+              <span class="name">{{ kv.key }}</span>
+              <span class="count">{{ kv.value }}</span>
+            </div>
+          }
+          @if (!stats()) {
+            <div class="muted">Loading…</div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Traffic Timeline</h3>
+        <span class="small">Benign vs Attack (per minute)</span>
+      </div>
+
+      <div class="timeline">
+        <div class="bars">
+          @for (p of (stats()?.timeline ?? []); track p.t) {
+            <div class="bar">
+              <span class="g" [style.height.%]="Math.min(100, (p.benign * 10))"></span>
+              <span class="r" [style.height.%]="Math.min(100, (p.attack * 10))"></span>
+            </div>
+          }
+        </div>
+        <div class="axis">
+          <span>old</span><span>now</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card table">
+    <div class="card-head">
+      <h3>Recent Detections</h3>
+      <span class="small">Latest 25 events</span>
+    </div>
+
+    <div class="thead">
+      <div>Timestamp</div>
+      <div>Predicted Type</div>
+      <div>Confidence</div>
+      <div>Actual Type</div>
+      <div>Status</div>
+      <div>Protocol</div>
+      <div>Duration</div>
+    </div>
+
+    @for (d of detections(); track d.at) {
+      <div class="trow">
+        <div class="mono">{{ shortTime(d.at) }}</div>
+        <div>
+          <span
+            class="badge"
+            [class.bad]="d.predicted_type.toLowerCase() !== 'benigntraffic' && d.predicted_type.toLowerCase() !== 'normal'"
+            >{{ d.predicted_type }}</span
+          >
+        </div>
+        <div class="mono ok">@if (d.confidence === null || d.confidence === undefined) { — } @else { {{ (d.confidence * 100) | number: '1.0-1' }}% }</div>
+        <div><span class="badge ghost">{{ d.actual_type ?? '—' }}</span></div>
+        <div class="mono">
+          @if (d.status === 'match') { ✓ } @else if (d.status === 'mismatch') { ✕ } @else { — }
+        </div>
+        <div class="mono">{{ d.protocol ?? '—' }}</div>
+        <div class="mono">@if (d.duration === null || d.duration === undefined) { — } @else { {{ d.duration | number: '1.0-2' }} }</div>
+      </div>
+    }
+
+    @if (detections().length === 0 && state() !== 'loading') {
+      <div class="empty">No detections yet. Upload a CSV or click “Simulate traffic”.</div>
+    }
+  </div>
+</div>
+
