@@ -36,9 +36,9 @@
   display: inline-grid;
   place-items: center;
   border-radius: 12px;
-  background: linear-gradient(135deg, #3b82f6, #a855f7);
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
   color: white;
-  box-shadow: 0 10px 26px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 10px 26px rgba(74, 149, 120, 0.35);
 }
 
 .brand-text {
@@ -95,8 +95,8 @@
 
 .btn-primary {
   color: white;
-  background: linear-gradient(135deg, #2563eb, #9333ea);
-  box-shadow: 0 14px 30px rgba(124, 58, 237, 0.25);
+  background: linear-gradient(135deg, var(--brand-2), var(--brand-1));
+  box-shadow: 0 14px 30px rgba(74, 149, 120, 0.35);
 }
 
 .btn-primary:hover {

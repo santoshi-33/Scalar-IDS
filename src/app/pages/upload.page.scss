@@ -80,8 +80,8 @@ input[type='file'] {
 }
 
 .alert {
-  border: 1px solid color-mix(in srgb, #ef4444 55%, var(--border));
-  background: color-mix(in srgb, #ef4444 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand-1) 55%, var(--border));
+  background: color-mix(in srgb, var(--brand-1) 12%, transparent);
   border-radius: 16px;
   padding: 0.7rem 0.85rem;
   font-weight: 750;

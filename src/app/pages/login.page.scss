@@ -25,8 +25,8 @@ h2 {
 }
 
 .alert {
-  border: 1px solid color-mix(in srgb, #ef4444 55%, var(--border));
-  background: color-mix(in srgb, #ef4444 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand-1) 55%, var(--border));
+  background: color-mix(in srgb, var(--brand-1) 12%, transparent);
   border-radius: 16px;
   padding: 0.7rem 0.85rem;
   font-weight: 750;
@@ -61,8 +61,8 @@ input {
 }
 
 input:focus {
-  border-color: color-mix(in srgb, #3b82f6 55%, var(--border));
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18);
+  border-color: color-mix(in srgb, var(--brand-2) 55%, var(--border));
+  box-shadow: var(--glow-primary);
 }
 
 .btn {
@@ -78,8 +78,8 @@ input:focus {
 
 .btn-primary {
   color: white;
-  background: linear-gradient(135deg, #2563eb, #9333ea);
-  box-shadow: 0 14px 30px rgba(124, 58, 237, 0.22);
+  background: linear-gradient(135deg, var(--brand-2), var(--brand-1));
+  box-shadow: 0 14px 30px rgba(74, 149, 120, 0.3);
 }
 
 .btn-primary:disabled {

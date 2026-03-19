@@ -26,6 +26,10 @@ export class DashboardPage {
   readonly detections = signal<DetectionEntry[]>([]);
   readonly minutes = signal(30);
   readonly polling = signal(true);
+  readonly activeClass = signal<string | null>(null);
+  readonly search = signal('');
+  readonly sortBy = signal<'time' | 'confidence' | 'label'>('time');
+  readonly sortDir = signal<'asc' | 'desc'>('desc');
 
   readonly attackRatePct = computed(() => Math.round(((this.stats()?.attack_rate ?? 0) * 100 + Number.EPSILON) * 10) / 10);
   readonly accuracyPct = computed(() => {
@@ -36,7 +40,44 @@ export class DashboardPage {
 
   readonly donutStyle = computed(() => {
     const pct = Math.max(0, Math.min(100, this.attackRatePct()));
-    return `conic-gradient(#ef4444 ${pct}%, rgba(234,240,255,0.10) 0)`;
+    return `conic-gradient(var(--brand-2) ${pct}%, rgba(236,255,247,0.12) 0)`;
+  });
+
+  readonly legendEntries = computed(() => {
+    const dist = this.stats()?.attack_type_distribution ?? {};
+    return Object.entries(dist).sort((a, b) => b[1] - a[1]);
+  });
+
+  readonly filteredDetections = computed(() => {
+    const q = this.search().trim().toLowerCase();
+    const cls = this.activeClass();
+    const by = this.sortBy();
+    const dir = this.sortDir();
+
+    let list = this.detections().filter((d) => !cls || d.predicted_type === cls);
+    if (q) {
+      list = list.filter((d) => {
+        const fields = [
+          d.predicted_type,
+          d.actual_type ?? '',
+          d.protocol ?? '',
+          d.status ?? '',
+          d.at,
+        ];
+        return fields.some((f) => f.toLowerCase().includes(q));
+      });
+    }
+
+    const sorted = [...list].sort((a, b) => {
+      if (by === 'time') {
+        return new Date(a.at).getTime() - new Date(b.at).getTime();
+      }
+      if (by === 'confidence') {
+        return (a.confidence ?? -1) - (b.confidence ?? -1);
+      }
+      return a.predicted_type.localeCompare(b.predicted_type);
+    });
+    return dir === 'asc' ? sorted : sorted.reverse();
   });
 
   constructor() {
@@ -79,6 +120,28 @@ export class DashboardPage {
 
   togglePolling() {
     this.polling.set(!this.polling());
+  }
+
+  setSearch(value: string) {
+    this.search.set(value);
+  }
+
+  toggleClassFilter(label: string) {
+    this.activeClass.set(this.activeClass() === label ? null : label);
+  }
+
+  clearFilters() {
+    this.activeClass.set(null);
+    this.search.set('');
+  }
+
+  setSort(by: 'time' | 'confidence' | 'label') {
+    if (this.sortBy() === by) {
+      this.sortDir.set(this.sortDir() === 'asc' ? 'desc' : 'asc');
+      return;
+    }
+    this.sortBy.set(by);
+    this.sortDir.set(by === 'time' ? 'desc' : 'asc');
   }
 
   setWindow(min: number) {

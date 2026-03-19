@@ -68,8 +68,8 @@ p {
 
 .btn-primary {
   color: white;
-  background: linear-gradient(135deg, #2563eb, #9333ea);
-  box-shadow: 0 14px 30px rgba(124, 58, 237, 0.25);
+  background: linear-gradient(135deg, var(--brand-2), var(--brand-1));
+  box-shadow: 0 14px 30px rgba(74, 149, 120, 0.35);
 }
 
 .btn-primary:hover {
@@ -113,8 +113,8 @@ p {
   width: min(420px, 100%);
   border-radius: 22px;
   border: 1px solid var(--border);
-  background: radial-gradient(1200px 500px at 10% 0%, rgba(59, 130, 246, 0.18), transparent 55%),
-    radial-gradient(900px 500px at 85% 15%, rgba(168, 85, 247, 0.16), transparent 55%),
+  background: radial-gradient(1200px 500px at 10% 0%, rgba(74, 149, 120, 0.26), transparent 55%),
+    radial-gradient(900px 500px at 85% 15%, rgba(159, 208, 186, 0.2), transparent 55%),
     color-mix(in srgb, var(--bg) 92%, white 8%);
   box-shadow: 0 28px 60px rgba(2, 6, 23, 0.35);
   overflow: hidden;
@@ -135,13 +135,13 @@ p {
   opacity: 0.85;
 }
 .dot.red {
-  background: #ef4444;
+  background: var(--brand-1);
 }
 .dot.yellow {
-  background: #f59e0b;
+  background: var(--brand-4);
 }
 .dot.green {
-  background: #22c55e;
+  background: var(--brand-3);
 }
 
 .spacer {
@@ -211,7 +211,7 @@ p {
   display: block;
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, #2563eb, #9333ea);
+  background: linear-gradient(90deg, var(--brand-2), var(--brand-1));
 }
 
 @media (max-width: 900px) {

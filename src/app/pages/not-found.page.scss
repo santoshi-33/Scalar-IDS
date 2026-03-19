@@ -18,7 +18,7 @@
   font-weight: 950;
   letter-spacing: -0.06em;
   font-size: 3.25rem;
-  background: linear-gradient(135deg, #2563eb, #9333ea);
+  background: linear-gradient(135deg, var(--brand-2), var(--brand-1));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -67,8 +67,8 @@ h2 {
 
 .btn-primary {
   color: white;
-  background: linear-gradient(135deg, #2563eb, #9333ea);
-  box-shadow: 0 14px 30px rgba(124, 58, 237, 0.22);
+  background: linear-gradient(135deg, var(--brand-2), var(--brand-1));
+  box-shadow: 0 14px 30px rgba(74, 149, 120, 0.3);
 }
 
 .btn-primary:hover {

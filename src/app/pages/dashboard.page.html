@@ -26,6 +26,14 @@
     <button class="pill" type="button" [class.active]="minutes() === 10" (click)="setWindow(10)">10m</button>
     <button class="pill" type="button" [class.active]="minutes() === 30" (click)="setWindow(30)">30m</button>
     <button class="pill" type="button" [class.active]="minutes() === 60" (click)="setWindow(60)">60m</button>
+    <input
+      class="search"
+      type="search"
+      placeholder="Search label/protocol/status…"
+      [value]="search()"
+      (input)="setSearch($any($event.target).value)"
+    />
+    <button class="pill" type="button" (click)="clearFilters()">Reset</button>
   </div>
 
   <div class="kpis">
@@ -59,11 +67,11 @@
       <div class="dist">
         <div class="donut" [style.background]="donutStyle()"></div>
         <div class="legend">
-          @for (kv of (stats()?.attack_type_distribution | keyvalue); track kv.key) {
-            <div class="row">
-              <span class="name">{{ kv.key }}</span>
-              <span class="count">{{ kv.value }}</span>
-            </div>
+          @for (kv of legendEntries(); track kv[0]) {
+            <button class="row interactive" type="button" [class.active]="activeClass() === kv[0]" (click)="toggleClassFilter(kv[0])">
+              <span class="name">{{ kv[0] }}</span>
+              <span class="count">{{ kv[1] }}</span>
+            </button>
           }
           @if (!stats()) {
             <div class="muted">Loading…</div>
@@ -101,16 +109,16 @@
     </div>
 
     <div class="thead">
-      <div>Timestamp</div>
-      <div>Predicted Type</div>
-      <div>Confidence</div>
+      <button class="th-btn" type="button" (click)="setSort('time')">Timestamp</button>
+      <button class="th-btn" type="button" (click)="setSort('label')">Predicted Type</button>
+      <button class="th-btn" type="button" (click)="setSort('confidence')">Confidence</button>
       <div>Actual Type</div>
       <div>Status</div>
       <div>Protocol</div>
       <div>Duration</div>
     </div>
 
-    @for (d of detections(); track d.at) {
+    @for (d of filteredDetections(); track d.at) {
       <div class="trow">
         <div class="mono">{{ shortTime(d.at) }}</div>
         <div>
@@ -130,7 +138,7 @@
       </div>
     }
 
-    @if (detections().length === 0 && state() !== 'loading') {
+    @if (filteredDetections().length === 0 && state() !== 'loading') {
       <div class="empty">No detections yet. Upload a CSV or click “Simulate traffic”.</div>
     }
   </div>
